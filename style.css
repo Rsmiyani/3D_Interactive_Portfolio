@@ -21,9 +21,6 @@ body {
     overflow-x: hidden;
     cursor: none;
     /* Custom cursor */
-    user-select: none; /* Prevent text selection */
-    -webkit-user-select: none; /* Safari */
-    -ms-user-select: none; /* IE 10 and IE 11 */
 }
 
 a,
@@ -854,6 +851,142 @@ nav {
     text-transform: uppercase;
 }
 
+/* Experience Section */
+.experience {
+    padding: 10rem 5%;
+    position: relative;
+    z-index: 5;
+}
+
+.experience-container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.timeline {
+    position: relative;
+    margin-top: 5rem;
+    padding-left: 4rem;
+}
+
+.timeline-line {
+    position: absolute;
+    left: 8px;
+    top: 0;
+    width: 2px;
+    height: 100%;
+    background: linear-gradient(to bottom, var(--accent-1), var(--accent-2), var(--accent-3));
+    opacity: 0.3;
+}
+
+.timeline-item {
+    position: relative;
+    margin-bottom: 4rem;
+}
+
+.timeline-item:last-child {
+    margin-bottom: 0;
+}
+
+.timeline-dot {
+    position: absolute;
+    left: -4rem;
+    top: 12px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--bg);
+    border: 3px solid var(--accent-2);
+    box-shadow: 0 0 15px var(--accent-2);
+    transition: all 0.3s ease;
+    z-index: 2;
+    transform: translateX(1px);
+}
+
+.timeline-item:hover .timeline-dot {
+    background: var(--accent-1);
+    border-color: var(--accent-1);
+    box-shadow: 0 0 20px var(--accent-1);
+    transform: scale(1.2) translateX(1px);
+}
+
+.timeline-content {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 20px;
+    padding: 2.5rem;
+    backdrop-filter: blur(10px);
+    transition: all 0.4s ease;
+}
+
+.timeline-content:hover {
+    background: rgba(255, 255, 255, 0.04);
+    border-color: rgba(0, 229, 255, 0.3);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.3);
+    transform: translateY(-5px);
+}
+
+.timeline-header {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0.5rem;
+    align-items: baseline;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding-bottom: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.timeline-header h3 {
+    font-family: var(--font-heading);
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: var(--text);
+}
+
+.timeline-company {
+    grid-column: 1;
+    font-size: 1.2rem;
+    font-weight: 400;
+    color: var(--accent-2);
+    margin-top: 0.2rem;
+}
+
+.timeline-date {
+    grid-column: 2;
+    grid-row: 1 / span 2;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--accent-1);
+    text-transform: uppercase;
+    align-self: center;
+}
+
+.timeline-body {
+    list-style-type: none;
+    padding-left: 0;
+}
+
+.timeline-body li {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    opacity: 0.8;
+    margin-bottom: 0.8rem;
+    position: relative;
+    padding-left: 1.5rem;
+}
+
+.timeline-body li:last-child {
+    margin-bottom: 0;
+}
+
+.timeline-body li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--accent-2);
+}
+
 /* Sticky Projects */
 .projects {
     padding: 10rem 5%;
@@ -896,18 +1029,6 @@ nav {
     background: rgba(30, 30, 30, 0.8);
     backdrop-filter: blur(15px);
     top: 18vh;
-}
-
-.card-4 {
-    background: rgba(36, 36, 36, 0.8);
-    backdrop-filter: blur(15px);
-    top: 21vh;
-}
-
-.card-5 {
-    background: rgba(45, 45, 45, 0.8);
-    backdrop-filter: blur(15px);
-    top: 24vh;
 }
 
 .tech-stack {
@@ -1105,6 +1226,137 @@ nav {
 .achieve-item:hover::after {
     opacity: 1;
     transform: translate(0, 0) scale(1) rotate(0deg);
+}
+
+/* Achievement items are clickable */
+.achieve-item {
+    cursor: none;
+}
+
+.achieve-item:focus-visible {
+    outline: none;
+    border-top-color: var(--accent-2);
+}
+
+.achieve-item:focus-visible .achieve-detail h3 {
+    color: var(--accent-2);
+}
+
+/* --- Achievement Detail Modal --- */
+.achieve-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 9990;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+}
+
+.achieve-modal.open {
+    opacity: 1;
+    visibility: visible;
+}
+
+.achieve-modal-overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(3, 3, 3, 0.75);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+.achieve-modal-card {
+    position: relative;
+    z-index: 1;
+    width: min(560px, 100%);
+    background: linear-gradient(160deg, rgba(20, 20, 24, 0.95), rgba(10, 10, 12, 0.95));
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 20px;
+    padding: 3rem 2.75rem;
+    box-shadow: 0 30px 80px rgba(0, 0, 0, 0.6), 0 0 40px rgba(0, 229, 255, 0.08);
+    transform: translateY(30px) scale(0.96);
+    opacity: 0;
+    transition: transform 0.5s cubic-bezier(0.19, 1, 0.22, 1), opacity 0.5s ease;
+    overflow: hidden;
+}
+
+.achieve-modal-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--accent-1), var(--accent-2), var(--accent-3));
+}
+
+.achieve-modal.open .achieve-modal-card {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+}
+
+.achieve-modal-close {
+    position: absolute;
+    top: 1.25rem;
+    right: 1.5rem;
+    width: 38px;
+    height: 38px;
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 50%;
+    background: transparent;
+    color: var(--text);
+    font-size: 1.5rem;
+    line-height: 1;
+    cursor: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+}
+
+.achieve-modal-close:hover {
+    background: var(--accent-1);
+    border-color: var(--accent-1);
+    transform: rotate(90deg);
+}
+
+.achieve-modal-meta {
+    display: inline-block;
+    font-family: var(--font-heading);
+    font-size: 0.8rem;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--accent-2);
+    margin-bottom: 1rem;
+}
+
+.achieve-modal-title {
+    font-family: var(--font-heading);
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1.15;
+    margin-bottom: 1.25rem;
+    color: var(--text);
+}
+
+.achieve-modal-desc {
+    font-size: 1.05rem;
+    line-height: 1.7;
+    opacity: 0.8;
+}
+
+@media (max-width: 768px) {
+    .achieve-modal-card {
+        padding: 2.5rem 1.75rem;
+    }
+
+    .achieve-modal-title {
+        font-size: 1.6rem;
+    }
 }
 
 /* Professional Contact Section with Form */
@@ -1401,5 +1653,47 @@ textarea.form-input {
 
     .nav-links {
         display: none;
+    }
+
+    .timeline {
+        padding-left: 2rem;
+    }
+    .timeline-line {
+        left: 4px;
+    }
+    .timeline-dot {
+        left: -2rem;
+        width: 14px;
+        height: 14px;
+        top: 6px;
+    }
+    .timeline-header {
+        grid-template-columns: 1fr;
+    }
+    .timeline-date {
+        grid-column: 1;
+        grid-row: auto;
+        margin-top: 0.5rem;
+    }
+    .timeline-content {
+        padding: 1.5rem;
+    }
+}
+
+/* Accessibility: respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.001ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.001ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    .marquee-content,
+    .blob,
+    .noise {
+        animation: none !important;
     }
 }

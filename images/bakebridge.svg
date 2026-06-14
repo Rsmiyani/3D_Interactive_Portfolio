@@ -1,0 +1,128 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <linearGradient id="bg-grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0502"/>
+      <stop offset="50%" stop-color="#180e06"/>
+      <stop offset="100%" stop-color="#24140b"/>
+    </linearGradient>
+    
+    <!-- Neon Gradients -->
+    <linearGradient id="gold-glow" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#ff9f43"/>
+      <stop offset="100%" stop-color="#ff6b6b"/>
+    </linearGradient>
+    <linearGradient id="peach-glow" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffb8b8"/>
+      <stop offset="100%" stop-color="#ff6b81"/>
+    </linearGradient>
+    
+    <!-- Glow Effect -->
+    <filter id="neon-glow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="800" height="600" fill="url(#bg-grad)"/>
+
+  <!-- Radial Light Aura behind map -->
+  <circle cx="280" cy="220" r="200" fill="#ff9f43" opacity="0.03" filter="url(#neon-glow)"/>
+
+  <!-- Grid Pattern -->
+  <g opacity="0.06" stroke="#ffffff" stroke-width="0.5">
+    <path d="M 0,50 L 800,50 M 0,100 L 800,100 M 0,150 L 800,150 M 0,200 L 800,200 M 0,250 L 800,250 M 0,300 L 800,300 M 0,350 L 800,350 M 0,400 L 800,400 M 0,450 L 800,450 M 0,500 L 800,500 M 0,550 L 800,550"/>
+    <path d="M 50,0 L 50,600 M 100,0 L 100,600 M 150,0 L 150,600 M 200,0 L 200,600 M 250,0 L 250,600 M 300,0 L 300,600 M 350,0 L 350,600 M 400,0 L 400,600 M 450,0 L 450,600 M 500,0 L 500,600 M 550,0 L 550,600 M 600,0 L 600,600 M 650,0 L 650,600 M 700,0 L 700,600 M 750,0 L 750,600"/>
+  </g>
+
+  <!-- Bakery Grid Storefront Layout (Large UI Panel Left) -->
+  <g transform="translate(60, 60)">
+    <!-- Glassmorphic Shop Window Container -->
+    <rect width="400" height="300" rx="20" fill="#130a05" fill-opacity="0.8" stroke="url(#gold-glow)" stroke-width="1.5" filter="url(#neon-glow)"/>
+    
+    <text x="25" y="35" font-family="'Space Grotesk', sans-serif" font-size="15" fill="#ff9f43" font-weight="900" letter-spacing="2">BAKEBRIDGE PLATFORM</text>
+    <rect x="25" y="48" width="350" height="1" fill="#ffffff" opacity="0.1"/>
+    
+    <!-- Active Vendor Shops in Grid -->
+    <!-- Shop Card 1 -->
+    <g transform="translate(25, 70)">
+      <rect width="165" height="100" rx="10" fill="#1d1109" stroke="#ffffff" stroke-width="0.5" stroke-opacity="0.2"/>
+      <!-- Icon/Thumbnail representation -->
+      <circle cx="35" cy="35" r="15" fill="url(#gold-glow)" opacity="0.8"/>
+      <path d="M 27,38 L 31,34 L 35,38 L 39,34 L 43,38" fill="none" stroke="#ffffff" stroke-width="2"/>
+      <text x="65" y="32" font-family="'Space Grotesk', sans-serif" font-size="12" fill="#ffffff" font-weight="bold">Sweet Delights</text>
+      <text x="65" y="47" font-family="'Outfit', sans-serif" font-size="9" fill="#00e5ff">1.2 km away</text>
+      <!-- Reviews -->
+      <text x="20" y="80" font-family="'Outfit', sans-serif" font-size="10" fill="#ff9f43" font-weight="bold">★★★★☆ <tspan fill="#ffffff" font-weight="normal" opacity="0.5">(4.5)</tspan></text>
+    </g>
+
+    <!-- Shop Card 2 -->
+    <g transform="translate(210, 70)">
+      <rect width="165" height="100" rx="10" fill="#1d1109" stroke="#ffffff" stroke-width="0.5" stroke-opacity="0.2"/>
+      <circle cx="35" cy="35" r="15" fill="url(#peach-glow)" opacity="0.8"/>
+      <path d="M 27,38 L 31,34 L 35,38 L 39,34 L 43,38" fill="none" stroke="#ffffff" stroke-width="2"/>
+      <text x="65" y="32" font-family="'Space Grotesk', sans-serif" font-size="12" fill="#ffffff" font-weight="bold">Golden Crusts</text>
+      <text x="65" y="47" font-family="'Outfit', sans-serif" font-size="9" fill="#00e5ff">3.5 km away</text>
+      <text x="20" y="80" font-family="'Outfit', sans-serif" font-size="10" fill="#ff9f43" font-weight="bold">★★★★★ <tspan fill="#ffffff" font-weight="normal" opacity="0.5">(5.0)</tspan></text>
+    </g>
+
+    <!-- Interactive Cart / Checkout Status Widget below shops -->
+    <g transform="translate(25, 190)">
+      <rect width="350" height="85" rx="12" fill="#1f140e" stroke="url(#peach-glow)" stroke-width="1"/>
+      <text x="20" y="30" font-family="'Space Grotesk', sans-serif" font-size="13" fill="#ffffff" font-weight="bold">Cart: 3 Items Selected</text>
+      <text x="20" y="55" font-family="'Outfit', sans-serif" font-size="11" fill="#ffffff" opacity="0.6">Delivery Destination: 150m (Marwadi Campus)</text>
+      <text x="330" y="35" font-family="'Space Grotesk', sans-serif" font-size="18" fill="#ff6b81" font-weight="bold" text-anchor="end">₹420</text>
+      <rect x="250" y="50" width="80" height="22" rx="11" fill="#ff6b81"/>
+      <text x="290" y="65" font-family="'Space Grotesk', sans-serif" font-size="9" fill="#ffffff" font-weight="bold" text-anchor="middle">CHECKOUT</text>
+    </g>
+  </g>
+
+  <!-- Order Delivery Tracking Timeline (Right Panel Top) -->
+  <g transform="translate(490, 60)">
+    <rect width="250" height="180" rx="20" fill="#140a05" fill-opacity="0.8" stroke="#ff9f43" stroke-width="1.5" filter="url(#neon-glow)"/>
+    <text x="20" y="30" font-family="'Space Grotesk', sans-serif" font-size="11" fill="#ff9f43" font-weight="900" letter-spacing="2">REAL-TIME TRACKER</text>
+    <rect x="20" y="42" width="210" height="1" fill="#ffffff" opacity="0.1"/>
+    
+    <!-- Tracking timeline nodes -->
+    <g transform="translate(20, 60)">
+      <!-- Node 1: Ordered (Done) -->
+      <circle cx="15" cy="15" r="6" fill="#ff9f43" filter="url(#neon-glow)"/>
+      <line x1="15" y1="21" x2="15" y2="40" stroke="#ff9f43" stroke-width="2"/>
+      <text x="35" y="19" font-family="'Space Grotesk', sans-serif" font-size="11" fill="#ffffff" font-weight="bold">Order Confirmed</text>
+      <text x="35" y="31" font-family="'Outfit', sans-serif" font-size="9" fill="#ffffff" opacity="0.5">11:15 AM</text>
+      
+      <!-- Node 2: Baking (Active) -->
+      <circle cx="15" cy="50" r="8" fill="none" stroke="#ff6b6b" stroke-width="2" filter="url(#neon-glow)"/>
+      <circle cx="15" cy="50" r="4" fill="#ff6b6b"/>
+      <line x1="15" y1="58" x2="15" y2="80" stroke="#ffffff" stroke-width="1" stroke-dasharray="2,2" opacity="0.3"/>
+      <text x="35" y="54" font-family="'Space Grotesk', sans-serif" font-size="11" fill="#ff6b6b" font-weight="bold">Baking in Oven...</text>
+      <text x="35" y="66" font-family="'Outfit', sans-serif" font-size="9" fill="#ff6b6b" font-weight="bold">Est. 12 mins left</text>
+      
+      <!-- Node 3: Out for Delivery (Pending) -->
+      <circle cx="15" cy="90" r="5" fill="#ffffff" opacity="0.2"/>
+      <text x="35" y="94" font-family="'Space Grotesk', sans-serif" font-size="11" fill="#ffffff" opacity="0.4">Out for Delivery</text>
+    </g>
+  </g>
+
+  <!-- Auto Invoice PDF module (Right Panel Bottom) -->
+  <g transform="translate(490, 260)">
+    <rect width="250" height="100" rx="15" fill="#140a05" fill-opacity="0.85" stroke="#ffb8b8" stroke-width="1"/>
+    <!-- PDF Document icon -->
+    <path d="M 25,25 L 45,25 L 55,35 L 55,65 L 25,65 Z" fill="none" stroke="#ff9f43" stroke-width="2"/>
+    <path d="M 45,25 L 45,35 L 55,35" fill="none" stroke="#ff9f43" stroke-width="1.5"/>
+    <line x1="30" y1="45" x2="50" y2="45" stroke="#ffffff" stroke-width="1" opacity="0.5"/>
+    <line x1="30" y1="52" x2="45" y2="52" stroke="#ffffff" stroke-width="1" opacity="0.5"/>
+    
+    <text x="68" y="38" font-family="'Space Grotesk', sans-serif" font-size="11" fill="#ffffff" font-weight="bold">PDF INVOICE GENERATOR</text>
+    <text x="68" y="53" font-family="'Outfit', sans-serif" font-size="9" fill="#ffb8b8">Auto-dispatched via Email</text>
+    <text x="68" y="68" font-family="'Space Grotesk', sans-serif" font-size="9" fill="#00e5ff" font-weight="bold">PDFKIT &amp; SMTP INTEGRATION</text>
+  </g>
+
+  <!-- Bottom Details -->
+  <text x="50" y="540" font-family="'Space Grotesk', sans-serif" font-size="24" fill="#ffffff" font-weight="900" letter-spacing="-0.5">BAKEBRIDGE</text>
+  <text x="50" y="560" font-family="'Outfit', sans-serif" font-size="13" fill="#ff9f43" font-weight="bold">NEXT.JS 16 / SUPABASE / POSTGRESQL / GEOLOCATION / PDFKIT</text>
+</svg>

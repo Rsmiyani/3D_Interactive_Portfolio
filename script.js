@@ -638,37 +638,49 @@ document.addEventListener('keydown', function (e) {
     }
 });
 
-// --- Security Features: Prevent Inspect & Text Selection ---
+// --- Achievement Detail Modal ---
+(function () {
+    const modal = document.getElementById('achieve-modal');
+    if (!modal) return;
 
-// 1. Prevent Right-Click Context Menu
-document.addEventListener('contextmenu', function (e) {
-    e.preventDefault();
-});
+    const modalTitle = document.getElementById('achieve-modal-title');
+    const modalMeta = document.getElementById('achieve-modal-meta');
+    const modalDesc = document.getElementById('achieve-modal-desc');
+    const closeBtn = modal.querySelector('.achieve-modal-close');
+    const items = document.querySelectorAll('.achieve-item[data-desc]');
 
-// 2. Prevent Keyboard Shortcuts for Developer Tools
-document.addEventListener('keydown', function (e) {
-    // Prevent F12
-    if (e.key === 'F12' || e.keyCode === 123) {
-        e.preventDefault();
+    function openModal(item) {
+        modalTitle.textContent = item.dataset.title || '';
+        modalMeta.textContent = item.dataset.meta || '';
+        modalDesc.textContent = item.dataset.desc || '';
+
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden', 'false');
+        if (typeof lenis !== 'undefined' && lenis.stop) lenis.stop();
+        if (closeBtn) closeBtn.focus();
     }
-    // Prevent Ctrl+Shift+I (Inspect)
-    if (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'i')) {
-        e.preventDefault();
+
+    function closeModal() {
+        modal.classList.remove('open');
+        modal.setAttribute('aria-hidden', 'true');
+        if (typeof lenis !== 'undefined' && lenis.start) lenis.start();
     }
-    // Prevent Ctrl+Shift+C (Inspect Element)
-    if (e.ctrlKey && e.shiftKey && (e.key === 'C' || e.key === 'c')) {
-        e.preventDefault();
-    }
-    // Prevent Ctrl+Shift+J (Console)
-    if (e.ctrlKey && e.shiftKey && (e.key === 'J' || e.key === 'j')) {
-        e.preventDefault();
-    }
-    // Prevent Ctrl+U (View Source)
-    if (e.ctrlKey && (e.key === 'U' || e.key === 'u')) {
-        e.preventDefault();
-    }
-    // Prevent Cmd+Option+I/J/U (Mac shortcuts)
-    if (e.metaKey && e.altKey && (e.key === 'I' || e.key === 'i' || e.key === 'J' || e.key === 'j' || e.key === 'U' || e.key === 'u')) {
-        e.preventDefault();
-    }
-});
+
+    items.forEach((item) => {
+        item.addEventListener('click', () => openModal(item));
+        item.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                openModal(item);
+            }
+        });
+    });
+
+    modal.querySelectorAll('[data-close]').forEach((el) => {
+        el.addEventListener('click', closeModal);
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
+    });
+})();
