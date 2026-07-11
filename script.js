@@ -684,3 +684,126 @@ document.addEventListener('keydown', function (e) {
         if (e.key === 'Escape' && modal.classList.contains('open')) closeModal();
     });
 })();
+
+// --- Premium Live Project Preview Modal (Mock Browser) ---
+(function () {
+    const browserModal = document.getElementById('browser-modal');
+    if (!browserModal) return;
+
+    const iframe = document.getElementById('browser-iframe');
+    const spinner = document.getElementById('browser-spinner');
+    const urlText = document.getElementById('browser-url-text');
+    const externalLink = document.getElementById('browser-external-link');
+    const reloadBtn = document.getElementById('browser-reload');
+    const closeButtons = browserModal.querySelectorAll('[data-close-browser]');
+
+    // Find all project preview trigger links (Live Demo links)
+    // We want to intercept links inside the ".project-card" that contain "Live Demo"
+    const projectCards = document.querySelectorAll('.project-card');
+    const previewLinks = [];
+
+    projectCards.forEach(card => {
+        const links = card.querySelectorAll('a');
+        links.forEach(link => {
+            // Check if the link target is a live demo (not GitHub code repository)
+            const isGitHub = link.href.includes('github.com');
+            const hasLiveText = link.textContent.toLowerCase().includes('live demo');
+
+            if (hasLiveText && !isGitHub) {
+                previewLinks.push(link);
+            }
+        });
+    });
+
+    function openBrowser(url) {
+        // Setup values
+        urlText.textContent = url;
+        externalLink.href = url;
+
+        // Reset iframe loaded state and show loader
+        iframe.classList.remove('loaded');
+        spinner.classList.remove('hidden');
+
+        // Set source
+        iframe.src = url;
+
+        // Show modal with accessibility attributes
+        browserModal.classList.add('open');
+        browserModal.setAttribute('aria-hidden', 'false');
+
+        // Stop background Lenis smooth scrolling
+        if (typeof lenis !== 'undefined' && lenis.stop) {
+            lenis.stop();
+        }
+    }
+
+    function closeBrowser() {
+        // Hide modal
+        browserModal.classList.remove('open');
+        browserModal.setAttribute('aria-hidden', 'true');
+
+        // Clear iframe source to stop background processes / media
+        iframe.src = '';
+        iframe.classList.remove('loaded');
+
+        // Resume background scroll
+        if (typeof lenis !== 'undefined' && lenis.start) {
+            lenis.start();
+        }
+    }
+
+    // Intercept click on live demo links
+    previewLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const url = link.href;
+            openBrowser(url);
+        });
+
+        // Add visual indicator to cursor outline on hover
+        link.addEventListener('mouseenter', () => {
+            if (typeof cursorOutline !== 'undefined' && cursorOutline) {
+                cursorOutline.classList.add('hover-active');
+            }
+        });
+
+        link.addEventListener('mouseleave', () => {
+            if (typeof cursorOutline !== 'undefined' && cursorOutline) {
+                cursorOutline.classList.remove('hover-active');
+            }
+        });
+    });
+
+    // Handle Iframe Onload to hide spinner
+    iframe.addEventListener('load', () => {
+        // Double check it's not a blank reload when closing
+        if (iframe.src && iframe.src !== 'about:blank' && iframe.src !== '') {
+            spinner.classList.add('hidden');
+            iframe.classList.add('loaded');
+        }
+    });
+
+    // Reload page handler
+    if (reloadBtn) {
+        reloadBtn.addEventListener('click', () => {
+            const currentSrc = iframe.src;
+            if (currentSrc && currentSrc !== 'about:blank') {
+                spinner.classList.remove('hidden');
+                iframe.classList.remove('loaded');
+                iframe.src = currentSrc; // re-triggers load
+            }
+        });
+    }
+
+    // Bind close events
+    closeButtons.forEach(btn => {
+        btn.addEventListener('click', closeBrowser);
+    });
+
+    // Close on Escape key press
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && browserModal.classList.contains('open')) {
+            closeBrowser();
+        }
+    });
+})();
